@@ -1,8 +1,9 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
+const isDev = require('electron-is-dev')
 
 
-const isDev = false //! Dev mode config
+// const isDev = false //! Dev mode config
 
 const isMac = process.platform === 'darwin'
 
@@ -17,7 +18,7 @@ const createWindow = () => {
   })
 
   win.loadURL(
-    isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../carz/build/index.html')}`
+    isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '/build/index.html')}`
   )
 }
 
@@ -27,7 +28,7 @@ app.on('window-all-closed', () => {
   if (!isMac) app.quit()
 })
 
-app.on('ativate', () => {
+app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow()
   }

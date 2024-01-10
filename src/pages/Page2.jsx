@@ -7,6 +7,6 @@ export const Page2 = () => {
 }
 
 const Page2Wrapper = styled.div`
-  border: 2px solid lime;
-  background-color: orange;
+  height: 200px;
+  background-color: #07981d;
 `
