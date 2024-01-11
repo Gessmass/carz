@@ -1,15 +1,36 @@
-const services = require('../services')
+const { findAll } = require('../services/CarService')
+const { uploadCarPicturePath } = require('../services/CarPictureService')
 
 const getAllCars = async (req, res) => {
-  await services.car
-    .findAll()
-    .then(([rows]) => {
-      res.send(rows)
-    })
-    .catch((err) => {
-      console.log(err)
-      res.sendStatus(500)
-    })
+  try {
+    const rows = await findAll();
+    if (!Array.isArray(rows)) {
+      throw new Error("Data is not an array");
+    }
+    res.send(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error retreiving data from database");
+  }
 }
 
-module.exports = getAll
+const uploadCarPicture = async (req, res) => {
+  if (!req.file) {
+    return res.status(400).send("No file uploaded")
+  }
+
+  const filePath = `assets/images/${req.file.filename}`
+  const carId = req.params.carId
+
+  try {
+    await uploadCarPicturePath({ picturePath: filePath }, carId)
+    res.status(200).send(`File uploaded successfully at path ${filePath}`)
+  } catch (err) {
+    console.error(err)
+    res.status(500).send("Error while saving a picture path")
+  }
+
+}
+
+
+module.exports = { getAllCars, uploadCarPicture }

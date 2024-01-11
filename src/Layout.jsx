@@ -1,14 +1,44 @@
 import styled from '@emotion/styled';
 import { Outlet, Link } from 'react-router-dom';
+import axios from 'axios';
+import { useState, useRef } from 'react';
 
 export const Layout = () => {
+  const [imageUrl, setImageUrl] = useState(null)
+
+  const fileInputRef = useRef(null);
+
+  const uploadPicture = async (e) => {
+    const picture = e.target.files[0]
+
+    const formData = new FormData()
+    formData.append("myFile", picture)
+
+    try {
+      const res = await axios.post('/uploadCarPicture', formData, {
+        headers: {
+          "Content-Type": 'multipart/form-data'
+        }
+      })
+      console.log("Image uploaded")
+    } catch (err) {
+      console.log('Fail uploading an image', err)
+    }
+  }
+
   return (
     <LayoutWrapper>
       <NavBar>
         <NavButtons>
-          <Button><Link to='landingpage'>Landing Page</Link></Button>
-          <Button><Link to='/page1'>Page 1</Link></Button>
-          <Button><Link to='/page2'>Page 2</Link></Button>
+          <Button><Link to='/carprofil'>Car Profil</Link></Button>
+          <Button onClick={() => fileInputRef.current.click()}>Upload Button</Button>
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={uploadPicture}
+            style={{ display: "none" }}
+          />
+
         </NavButtons>
       </NavBar>
       <Outlet />
