@@ -4,9 +4,8 @@ import axios from 'axios';
 import { useState, useRef } from 'react';
 
 export const Layout = () => {
-  const [imageUrl, setImageUrl] = useState(null)
-
-  const fileInputRef = useRef(null);
+  const [carId, setCarId] = useState(null)
+  const fileInputRef = useRef(null)
 
   const uploadPicture = async (e) => {
     const picture = e.target.files[0]
@@ -15,7 +14,7 @@ export const Layout = () => {
     formData.append("myFile", picture)
 
     try {
-      const res = await axios.post('/uploadCarPicture', formData, {
+      await axios.post(`/upload/uploadCarPicture/${carId}`, formData, {
         headers: {
           "Content-Type": 'multipart/form-data'
         }
