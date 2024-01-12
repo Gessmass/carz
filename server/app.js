@@ -1,9 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const { multer } = require('multer')
-
-const router = require('./router');
+const router = require('./routes/router');
 
 const app = express();
 
@@ -20,6 +18,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", router);
+
+app.use(express.static('public'));
 
 app.use("*", (req, res) => {
   res.status(404).json({ message: "Not found" })

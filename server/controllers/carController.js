@@ -19,7 +19,7 @@ const uploadCarPicture = async (req, res) => {
     return res.status(400).send("No file uploaded")
   }
 
-  const filePath = `assets/images/${req.file.filename}`
+  const filePath = `assets/images/${req.file.filename}` // no "public" in path bcz expres.static("public") in app.js
   const carId = req.params.carId
 
   try {
