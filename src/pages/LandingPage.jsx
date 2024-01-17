@@ -1,10 +1,10 @@
-import styled from '@emotion/styled'
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { CarDisplay } from '../components/landingPage/CarDisplay'
-import { useNavigate } from 'react-router-dom'
-import BannerImage from '../assets/images/landingPageBanner.png'
-import { Divider } from 'antd'
+import styled from "@emotion/styled"
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { CarDisplay } from "../components/landingPage/CarDisplay"
+import { useNavigate } from "react-router-dom"
+import BannerImage from "../assets/images/landingPageBanner.png"
+import { Divider } from "antd"
 
 export const LandingPage = () => {
   const [cars, setCars] = useState([])
@@ -12,10 +12,12 @@ export const LandingPage = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios.get(`http://localhost:4242/api/car/cars`)
+    axios
+      .get(`http://localhost:4242/api/car/cars`)
       .then((res) => {
         setCars(res.data)
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.log("Error while retreiving the cars list", error)
       })
   }, [])
@@ -30,13 +32,19 @@ export const LandingPage = () => {
         <FilterTitle>Filters</FilterTitle>
         <FiltersContainer></FiltersContainer>
       </FiltersWrapper>
-      <FilterDivider type='vertical' />
+      <FilterDivider type="vertical" />
       <CarSelector>
         {cars.map((car, index) => (
-          <CarDisplay onClick={() => handleSelectCar(car)} key={index} brand={car.brand} model={car.model} carId={car.id} />
+          <CarDisplay
+            onClick={() => handleSelectCar(car)}
+            key={index}
+            brand={car.brand}
+            model={car.model}
+            carId={car.id}
+          />
         ))}
       </CarSelector>
-    </LandingPageWrapper >
+    </LandingPageWrapper>
   )
 }
 
@@ -72,7 +80,7 @@ const CarSelector = styled.div`
 `
 
 const LandingPageWrapper = styled.div`
-display: flex;
-justify-content: center;
-align-items: start;
+  display: flex;
+  justify-content: center;
+  align-items: start;
 `

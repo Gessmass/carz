@@ -1,14 +1,13 @@
-import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import { Button, Layout } from 'antd'
+import styled from "@emotion/styled"
+import { useEffect, useState } from "react"
+import { Outlet, Link } from "react-router-dom"
+import { useLocation } from "react-router-dom"
+import { Button, Layout } from "antd"
 
 const { Content } = Layout
 export const PageLayout = () => {
   const [pageName, setPageName] = useState("")
   const location = useLocation()
-
 
   useEffect(() => {
     const path = location.pathname
@@ -24,28 +23,33 @@ export const PageLayout = () => {
     }
   }, [location.pathname])
 
-
-
   return (
     <>
       <NavBar>
         <LeftNavDiv>
-          {location.pathname !== "/" &&
-            <ArrowNavbar><Link to='/'>Home</Link></ArrowNavbar>
-          }
+          {location.pathname !== "/" && (
+            <ArrowNavbar>
+              <Link to="/">Home</Link>
+            </ArrowNavbar>
+          )}
         </LeftNavDiv>
-        <CenterNavDiv><PageName>{pageName}</PageName></CenterNavDiv>
+        <CenterNavDiv>
+          <PageName>{pageName}</PageName>
+        </CenterNavDiv>
         <RightNavDiv>
-          {location.pathname !== "/addcar" && <AddCarButton><Link to='/addcar' > + Add a car</Link></AddCarButton>}
+          {location.pathname !== "/addcar" && (
+            <AddCarButton>
+              <Link to="/addcar"> + Add a car</Link>
+            </AddCarButton>
+          )}
         </RightNavDiv>
       </NavBar>
-      <OutletContainer
-      >
+      <OutletContainer>
         <Outlet />
       </OutletContainer>
     </>
-  );
-};
+  )
+}
 
 const OutletContainer = styled(Content)`
   border-radius: 6px;
@@ -66,11 +70,11 @@ const LeftNavDiv = styled.div`
 `
 
 const RightNavDiv = styled(LeftNavDiv)`
-justify-content: end;
+  justify-content: end;
 `
 
 const CenterNavDiv = styled(LeftNavDiv)`
-justify-content: center;
+  justify-content: center;
 `
 
 const AddCarButton = styled(Button)`
@@ -94,4 +98,4 @@ const NavBar = styled.div`
   width: 100%;
   z-index: 10;
   top: 0;
-`;
+`

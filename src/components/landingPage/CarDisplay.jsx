@@ -1,12 +1,15 @@
-import styled from '@emotion/styled'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import styled from "@emotion/styled"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 export const CarDisplay = ({ brand, model, onClick, carId }) => {
-  const [carPicturePath, setCarPicturePath] = useState('')
+  const [carPicturePath, setCarPicturePath] = useState("")
 
   useEffect(() => {
-    axios.get(`http://localhost:4242/api/car/getmainpicture`, { params: { carId } })
+    axios
+      .get(`http://localhost:4242/api/car/getmainpicture`, {
+        params: { carId },
+      })
       .then((res) => {
         setCarPicturePath(res.data)
       })
@@ -39,7 +42,7 @@ const Brand = styled.h1`
 const CarDescription = styled.div`
   display: flex;
   justify-content: space-around;
-  align-items: center ;
+  align-items: center;
 `
 
 const CarThumbnail = styled.img`
@@ -56,11 +59,11 @@ const CarDisplayWrapper = styled.div`
   border: 1px solid grey;
   display: flex;
   background-color: #ffffff;
-  transition: .2s ease;
+  transition: 0.2s ease;
   &:hover {
     background-color: white;
     box-shadow: 0px 0px 7px 1px #878787;
-    transition: .2s ease;
+    transition: 0.2s ease;
     transform: scale(1.01);
   }
 `
